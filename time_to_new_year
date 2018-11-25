@@ -1,0 +1,35 @@
+#include <stdio.h>
+#include <time.h>
+#include <stdlib.h>
+#include <windows.h>
+
+int main()
+{
+	time_t now;
+	struct tm * nowtm;
+	struct tm newyeartm;
+	newyeartm.tm_hour = 0;
+	newyeartm.tm_min = 0;
+	newyeartm.tm_sec = 0;
+	newyeartm.tm_mday = 1;
+	newyeartm.tm_mon = 0; //0 это январь
+	newyeartm.tm_year = 2019 - 1900;
+	time_t newyear;
+	newyear = mktime(&newyeartm);
+
+	while (1)
+	{
+		time(&now);
+		nowtm = localtime(&now);
+		int sec = (int)(newyear - now);
+		printf("New Year will come in %d days, %d hours, %d mins, %d seconds\r",
+			sec/86400,
+			sec/3600 %24,
+			sec/60 %60,
+			sec %60);
+			clock_t begin = clock();
+			while (clock() < begin + 50); 
+			
+	}
+	return 0;
+}
